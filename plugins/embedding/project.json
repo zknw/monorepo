@@ -1,0 +1,41 @@
+{
+  "name": "embedding-plugin",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "plugins/embedding/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/plugins/embedding",
+        "tsConfig": "plugins/embedding/tsconfig.lib.json",
+        "packageJson": "plugins/embedding/package.json",
+        "main": "plugins/embedding/src/index.ts",
+        "assets": ["plugins/embedding/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs embedding-plugin {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "plugins/embedding/**/*.ts",
+          "plugins/embedding/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "plugins/embedding/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
