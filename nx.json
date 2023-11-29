@@ -6,6 +6,12 @@
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
     },
+    "serve": {
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "build"
+      }
+    },
     "lint": {
       "cache": true,
       "inputs": [
@@ -46,5 +52,18 @@
     ],
     "sharedGlobals": []
   },
-  "nxCloudAccessToken": "ZDUwMzMzNWQtYmNmNi00MGYxLWE5ODAtZTdiMWQyNDYwYmZkfHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "ZDUwMzMzNWQtYmNmNi00MGYxLWE5ODAtZTdiMWQyNDYwYmZkfHJlYWQtd3JpdGU=",
+  "generators": {
+    "@nx/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nx/next": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  }
 }

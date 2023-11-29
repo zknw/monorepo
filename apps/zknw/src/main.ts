@@ -1,1 +1,3 @@
-console.log('Hello World');
+import { embeddingPlugin } from "@zknw/embedding";
+
+console.log(embeddingPlugin());
