@@ -1,15 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import {
-  useAccount,
-  useConnect,
-  useDisconnect,
-  useEnsAvatar,
-  useEnsName,
-} from 'wagmi';
+// import { useEffect, useState } from 'react';
+// import {
+//   useAccount,
+//   useConnect,
+//   useDisconnect,
+//   useEnsAvatar,
+//   useEnsName,
+// } from 'wagmi';
 
-export default function ConnectButton() {
+export default async function ConnectButton() {
+  
   return <w3m-button />
   // const { address, connector, isConnected } = useAccount();
   // const { data: ensName } = useEnsName({ address });

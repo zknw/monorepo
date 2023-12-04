@@ -1,4 +1,5 @@
 import { Web3Modal } from '../lib/wagmi';
+import { Web5Component } from '../lib/web5/web5-context';
 import './global.css';
 
 export const metadata = {
@@ -13,9 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='bg-background text-slate-50'>
+      <body className="bg-background text-slate-50">
         <Web3Modal>
-          {children}
+          <Web5Component>{children}</Web5Component>
         </Web3Modal>
       </body>
     </html>

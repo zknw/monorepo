@@ -1,29 +1,31 @@
 import {
-    AgentResolver,
-    BjjProvider,
-    CredentialStatusResolverRegistry,
-    CredentialStatusType,
-    CredentialStorage,
-    CredentialWallet,
-    defaultEthConnectionConfig,
-    EthStateStorage,
-    Identity,
-    IdentityStorage,
-    IdentityWallet,
-    InMemoryDataSource,
-    InMemoryMerkleTreeStorage,
-    InMemoryPrivateKeyStore,
-    IssuerResolver,
-    KMS,
-    KmsKeyType,
-    OnChainResolver,
-    Profile,
-    RHSResolver,
-    W3CCredential
+  AgentResolver,
+  BjjProvider,
+  CredentialStatusResolverRegistry,
+  CredentialStatusType,
+  CredentialStorage,
+  CredentialWallet,
+  defaultEthConnectionConfig,
+  EthStateStorage,
+  Identity,
+  IdentityStorage,
+  IdentityWallet,
+  InMemoryDataSource,
+  InMemoryMerkleTreeStorage,
+  InMemoryPrivateKeyStore,
+  IssuerResolver,
+  KMS,
+  KmsKeyType,
+  OnChainResolver,
+  Profile,
+  RHSResolver,
+  W3CCredential,
 } from '@0xpolygonid/js-sdk';
 import { PrivateKey } from '@iden3/js-crypto';
 import { Blockchain, DidMethod, NetworkId } from '@iden3/js-iden3-core';
-import { mnemonicToAccount } from 'viem/accounts';
+import { HDKey, mnemonicToAccount } from 'viem/accounts';
+import BIP32Factory from 'bip32';
+import * as ecc from 'tiny-secp256k1';
 
 async function main() {
   const dataStorage = {
@@ -73,22 +75,31 @@ async function main() {
   const wallet = new IdentityWallet(kms, dataStorage, credWallet);
 
   const account = mnemonicToAccount(process.env.MNEMONIC, {
-    path: "m/44'/60'/0'/0/1"
+    path: "m/44'/60'/0'/0/0",
   });
-
   
+  const firstSeed = account.getHdKey().privateKey;
+
+  const secondSeed =
+    HDKey.fromMasterSeed(firstSeed).derive("m/44'/60'/0'/0").privateKey;
+
   const { did } = await wallet.createIdentity({
     method: DidMethod.PolygonId,
     blockchain: Blockchain.Polygon,
     networkId: NetworkId.Main,
-    seed: account.getHdKey().privateKey,
+    seed: secondSeed,
     revocationOpts: {
       type: CredentialStatusType.Iden3ReverseSparseMerkleTreeProof,
       id: 'https://rhs-staging.polygonid.me',
     },
-  }); 
+  });
 
-  console.log('did:polygonid:polygon:main:2q5maGWnDX4Vm8MfqcYAMSK9EadyyDMvvXUULqzmXA' === did.string(), did.string(), account.address);
+  console.log(
+    'did:polygonid:polygon:main:2q5maGWnDX4Vm8MfqcYAMSK9EadyyDMvvXUULqzmXA' ===
+      did.string(),
+    did.string(),
+    account.address
+  );
 }
 
 main();

@@ -7,6 +7,10 @@ declare module '*.svg' {
   export default content;
 }
 
+declare module '@web5/api/browser' {
+  export * from '@web5/api';
+}
+
 declare global {
   interface Window {
     ethereum?: MetaMaskInpageProvider & {
