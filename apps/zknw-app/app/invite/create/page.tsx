@@ -1,16 +1,17 @@
-import ConnectButton from "apps/zknw-app/components/connect-button";
-import { UserAvatar } from "apps/zknw-app/components/user-avatar";
-import { Web5Component } from "apps/zknw-app/lib/web5/web5-context";
+import { InviteCreationForm } from './InviteCreationForm';
 
 export default function InviteCreatePage() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center">
       <div className="flex flex-col items-center">
-        <UserAvatar />
-        <div className="flex flex-col gap-8">
-          <ConnectButton />
-        </div>
-        <Web5Component />
+        <h1 className="text-3xl font-bold">What you know about mate?</h1>
+        <InviteCreationForm />
+
+        {/* <UserAvatar /> */}
+        {/* <div className="flex flex-col gap-8"> */}
+        {/* <ConnectButton /> */}
+        {/* </div> */}
+        {/* <Web5Component /> */}
       </div>
     </div>
   );
