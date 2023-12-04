@@ -1,3 +1,4 @@
+import { Web3Modal } from '../lib/wagmi';
 import './global.css';
 
 export const metadata = {
@@ -12,7 +13,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className='bg-background text-slate-50'>
+        <Web3Modal>
+          {children}
+        </Web3Modal>
+      </body>
     </html>
   );
 }

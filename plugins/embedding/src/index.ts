@@ -1,1 +1,1 @@
-export * from './lib/embedding-plugin';
+export { embeddingPlugin } from './lib/embedding-plugin';

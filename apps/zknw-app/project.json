@@ -7,13 +7,15 @@
     "build": {
       "executor": "@nx/next:build",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
+      "defaultConfiguration": "development",
       "options": {
         "outputPath": "dist/apps/zknw-app"
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/zknw-app"
+          "outputPath": "apps/zknw-app",
+          "debug": true,
+          "dev": true
         },
         "production": {}
       }
@@ -22,13 +24,12 @@
       "executor": "@nx/next:server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "zknw-app:build",
-        "dev": true
+        "dev": true,
+        "port": 6200
       },
       "configurations": {
         "development": {
-          "buildTarget": "zknw-app:build:development",
-          "dev": true
+          "buildTarget": "zknw-app:build:development"
         },
         "production": {
           "buildTarget": "zknw-app:build:production",
